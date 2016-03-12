@@ -12,4 +12,5 @@ if __name__ == "__main__":
     # Thanks, stx (again)
     # Bind to PORT if defined, otherwise default to 5001.
     port = int(os.environ.get('PORT', 5001))
-    app.run(host='0.0.0.0', port=port)
+    debug = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
+    app.run(host='0.0.0.0', port=port, debug=debug)
