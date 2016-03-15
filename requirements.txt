@@ -10,6 +10,7 @@ maxminddb==1.2.0
 psycopg2==2.6.1
 python-dateutil==2.5.0
 python-geoip==1.2
+python-geoip-geolite2==2015.303
 requests==2.9.1
 six==1.10.0
 SQLAlchemy==1.0.12

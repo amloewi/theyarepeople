@@ -4,13 +4,10 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import os
 import datetime
 from dateutil.tz import tzlocal
+from geoip import geolite2
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
-
-#entries = ['David Barstow, \"Donald Trump\'s Election Office and Unlikely Melting Pot\", New York Times, March 13, 2016']*20 # eventually, pull from db
-# So it's ~14 double-liners, or 24 singles
-
 local = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
 
 if local:
@@ -18,7 +15,6 @@ if local:
     app.config['TESTING'] = True # DISTINCT from 'debug,' removes password locks
 else:
     db_url = os.environ['DATABASE_URL'] # is fine on heroku
-#'sqlite:////tmp/test.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 
 
@@ -32,13 +28,22 @@ class Submission(db.Model):
     text     = db.Column(db.Text)
     stamp    = db.Column(db.DateTime)
     approved = db.Column(db.Boolean)
-    # location -- ? how to store that?
+    ip       = db.Column(db.String(45))
+    latlong  = db.Column(db.String(30))
+    city     = db.Column(db.String(80))
 
-    def __init__(self, text):
+    def __init__(self, text, ip):
         self.text     = text
         self.stamp    = datetime.datetime.now(tzlocal())
         self.approved = False
-        # self.location = whatever ... lat, long?
+
+        try:
+            self.ip       = ip
+            match = geolite2.lookup(ip)
+            self.latlong  = str(match.location[0])+","+str(match.location[1])
+            self.city     = match['city']['names']['en']
+        except Exception, x:
+            print x
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -46,7 +51,8 @@ def main():
 
     if request.method == 'POST':
 
-        submission = Submission(request.form['text']) # I also want datetime, and ... sending IP.
+        print request.remote_addr
+        submission = Submission(request.form['text'], request.remote_addr)
         db.session.add(submission)
         db.session.commit()
 
@@ -63,6 +69,6 @@ if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5001.
     port = int(os.environ.get('PORT', 5001))
     debug = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
     app.run(host='0.0.0.0', port=port, debug=debug)

@@ -102,9 +102,13 @@
         </div> <!-- End middle column -->
 
         <!-- Right Column -->
-        <div class="col-md-4" style="color:lightgray;">
+        <div class="col-md-4">
+          <!-- Citation -->
+          <div class='col-md-12' style="padding:5px; text-align:right; font-family:serif;">
+            Protestors interrupt Trump rally, CNN, https://www.youtube.com/watch?v=DtBj7alV4AI
+          </div>
           {% for entry in right %}
-            <div class='col-md-12' style="padding:5px">
+            <div class='col-md-12' style="padding:5px; color:lightgray">
               {{ entry }}
             </div>
           {% endfor %}
