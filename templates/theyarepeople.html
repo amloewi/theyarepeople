@@ -17,55 +17,92 @@
     src="https://www.youtube.com/embed/DtBj7alV4AI?start=52&end=56&version=3"
     frameborder="0" allowfullscreen></iframe> -->
 
-    <div class="container" style="position:absolute; top:5%;">
-      <div class="row col-md-offset-4">
-        <!-- style='position:absolute; margin:auto; top:20%; left:50%; transform: translate(-50%, -50%);' -->
-        <!-- width="320" height="240" -->
+    <div class="container" style="position:absolute; top:5%; width:100%; margin:auto">
+      <div class="row">
 
-        <!-- <div class="row col-md-4" style="color:lightgray; margin-left:20px; 20px">
-          Baltimore Sun, May 11, "Trump is Great", Bonald Drumpf
-        </div> -->
+        <!-- Left Column -->
+        <div class="col-md-4" style="color:lightgray;">
+          {% for entry in entries %}
+            <div class='col-md-12' style="padding:5px">
+              {{ entry }}
+            </div>
+          {% endfor %}
+        </div>
 
-        <video class="col-md-7"
-        controls autoplay loop>
-          <source src="static/videos/long_clip.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
-      </div>
+        <!-- Middle column -->
+        <div class="col-md-4">
+
+          <video width="100%" controls autoplay loop>
+            <source src="static/videos/long_clip.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+
+          <div class="col-md-12" style="font-family:serif;">
 
 
-        <div class="row col-md-offset-4">
-          <div class="col-md-7" style="font-family:serif">
+            <h4>Dear member of this nation's media,</h4>
 
-            <h4>Let this be where it ends.</h4>
+            I recently read some of your work on Donald Trump. Unfortunately, I
+            believe you left out the aspect of this man that most deserves
+            national attention.
+
             <br>
-            It doesn't matter who he's talking about, because he's wrong.
-            No matter what, he's wrong. If there is one truth that matters, it
+            <h4>"These are not people. Just remember that."</h5>
+
+            Donald Trump said that, to a vast crowd, at a rally in North Carolina.
+            Talking about people who disagreed with his deep belief -- that
+            there is humanity that can be dismissed. That he can snarl away,
+            while those around him nod soberly, encouraged.
+
+            <br>
+            <h4>If there is one thing that makes me human,<br> it is that I see other humans.</h4>
+
+            And I will not entertain the threat of a president who does not
+            enshrine this principle. And I will not sit while he is written and
+            talked or even joked about, in a way that allows one to ignore this
+            side of him. So I plead with you now to use your post, and its power,
+            to describe the man as he is.
+
+
+            <!-- <h4>Let this be where it ends.</h4>
+            <br>
+            It doesn't even matter who he's talking about, because no matter who
+            they are, they are people. If there is one truth that matters, it
             is this one. And he snarls it away, to people who nod, believing.
             <br><br>
             Any article about Donald Trump, that's talking about his electability,
             or his strange appeal, or even his clownishness -- send the journalist here. Any
             show, that focusses on any aspect of him that isn't this one -- send
-            the anchor here. Any joke, any quip, any song, send the writer, send
+            the anchor here. Any joke, any quip, any song, send the editor, send
             the pundit, send the marketing executive, call them, write them, berate them,
             cajole them, to come here, because this is the story. This is the story
             and nothing else is, any more.
             <br><br>
             Because they are people.
             <br><br>
-            And there is literally nothing in the world that matters more than that.
+            And there is literally nothing in the world that matters more than that. -->
+
           </div>
+
+          <div class="form-group col-md-12" style="top:10px;">
+            <input  id="text" type="text" class="col-md-10"
+            placeholder="I wrote to: John Doe, Washington Post">
+            <button id="submit" type="submit" class="btn btn-default col-md-2" style="top:-5px; background:lightgrey">--></button>
+          </div>
+
+        </div> <!-- End middle column -->
+
+        <!-- Right Column -->
+        <div class="col-md-4" style="color:lightgray;">
+          {% for entry in entries %}
+            <div class='col-md-12' style="padding:5px">
+              {{ entry }}
+            </div>
+          {% endfor %}
         </div>
-      </div>
 
-
-    <!-- This is the Republican front-runner, talking about people. It doesn't actually
-    matter who, because he's wrong, no matter who they are. They are people.
-
-    This is the Republican party's leading candidate,
-
-    This is Donald Trump, who has gotten more votes in the  -->
-
+      </div> <!-- End row -->
+    </div> <!-- End container -->
 
   </body>
 </html>
