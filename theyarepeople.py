@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_from_directory
 from flask.ext.sqlalchemy import SQLAlchemy
 
 import os
@@ -45,6 +45,11 @@ class Submission(db.Model):
         except Exception, x:
             print x
 
+@app.route('/favicon.ico')
+def favicon():
+    path = os.path.join(app.root_path, 'static/images')
+    return send_from_directory(path, 'favicon.ico',
+                mimetype='image/vnd.microsoft.icon')
 
 @app.route("/", methods=['GET', 'POST'])
 def main():
@@ -69,6 +74,6 @@ if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5001.
     port = int(os.environ.get('PORT', 5001))
     debug = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
-    #db.drop_all()
+    db.drop_all()
     db.create_all()
     app.run(host='0.0.0.0', port=port, debug=debug)
