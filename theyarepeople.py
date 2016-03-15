@@ -74,6 +74,6 @@ if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5001.
     port = int(os.environ.get('PORT', 5001))
     debug = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
-    db.drop_all()
+    #db.drop_all()
     db.create_all()
     app.run(host='0.0.0.0', port=port, debug=debug)
