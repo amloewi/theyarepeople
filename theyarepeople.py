@@ -8,13 +8,8 @@ from dateutil.tz import tzlocal
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
-entries = ['David Barstow, \"Donald Trump\'s Election Office and Unlikely Melting Pot\", New York Times, March 13, 2016']*20 # eventually, pull from db
+#entries = ['David Barstow, \"Donald Trump\'s Election Office and Unlikely Melting Pot\", New York Times, March 13, 2016']*20 # eventually, pull from db
 # So it's ~14 double-liners, or 24 singles
-
-# entries = db.Submission.query.all()
-# left = entries[:14]
-# right = entries[14:28]
-# middle = entries[28:]
 
 local = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
 
@@ -44,16 +39,21 @@ class Submission(db.Model):
         # self.location = whatever ... lat, long?
 
 
-
 @app.route("/", methods=['GET', 'POST'])
 def main():
+
     if request.method == 'POST':
 
         submission = Submission(request.form['text']) # I also want datetime, and ... sending IP.
         db.session.add(submission)
         db.session.commit()
 
-    return render_template('theyarepeople.html', entries=entries) #left=left, middle=middle, right=right)
+    entries = [s.text for s in Submission.query.order_by(Submission.id.desc())]
+    left = entries[:14]
+    right = entries[14:28]
+    middle = entries[28:]
+
+    return render_template('theyarepeople.html', left=left, middle=middle, right=right)
 
 
 if __name__ == "__main__":

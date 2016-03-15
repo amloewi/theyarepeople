@@ -22,7 +22,7 @@
 
         <!-- Left Column -->
         <div class="col-md-4" style="color:lightgray;">
-          {% for entry in entries %}
+          {% for entry in left %}
             <div class='col-md-12' style="padding:5px">
               {{ entry }}
             </div>
@@ -84,17 +84,26 @@
 
           </div>
 
-          <div class="form-group col-md-12" style="top:10px;">
-            <input  id="text" type="text" class="col-md-10"
-            placeholder="I wrote to: John Doe, Washington Post">
-            <button id="submit" type="submit" class="btn btn-default col-md-2" style="top:-5px; background:lightgrey">--></button>
+          <form class="col-md-12" style="top:10px;" method="post">
+              <input  type="text" name="text" class="col-md-10" placeholder="I sent this to: John Doe, WaPo, March 15">
+              <button type="submit" name="submit" class="btn btn-default col-md-2" style="top:-5px; background:lightgrey">--></button>
+          </form>
+
+          <!-- Entries that go under the middle column -->
+          <div class="col-md-4" style="color:lightgray;">
+            {% for entry in middle %}
+              <div class='col-md-12' style="padding:5px">
+                {{ entry }}
+              </div>
+            {% endfor %}
           </div>
+
 
         </div> <!-- End middle column -->
 
         <!-- Right Column -->
         <div class="col-md-4" style="color:lightgray;">
-          {% for entry in entries %}
+          {% for entry in right %}
             <div class='col-md-12' style="padding:5px">
               {{ entry }}
             </div>
