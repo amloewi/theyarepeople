@@ -28,14 +28,16 @@ class Submission(db.Model):
 
     """Data and metadata on entries sent from the textfield.
     """
-    id    = db.Column(db.Integer, primary_key=True)
-    text  = db.Column(db.Text)
-    stamp = db.Column(db.DateTime)
+    id       = db.Column(db.Integer, primary_key=True)
+    text     = db.Column(db.Text)
+    stamp    = db.Column(db.DateTime)
+    approved = db.Column(db.Boolean)
     # location -- ? how to store that?
 
     def __init__(self, text):
-        self.text = text
-        self.stamp = datetime.datetime.now(tzlocal())
+        self.text     = text
+        self.stamp    = datetime.datetime.now(tzlocal())
+        self.approved = False
         # self.location = whatever ... lat, long?
 
 
@@ -48,7 +50,7 @@ def main():
         db.session.add(submission)
         db.session.commit()
 
-    entries = [s.text for s in Submission.query.order_by(Submission.id.desc())]
+    entries = [s.text for s in Submission.query.order_by(Submission.id.desc()) if s.approved]
     left = entries[:14]
     right = entries[14:28]
     middle = entries[28:]
@@ -61,5 +63,6 @@ if __name__ == "__main__":
     # Bind to PORT if defined, otherwise default to 5001.
     port = int(os.environ.get('PORT', 5001))
     debug = app.root_path == '/Users/alexloewi/Documents/Sites/theyarepeople'
+    db.drop_all()
     db.create_all()
     app.run(host='0.0.0.0', port=port, debug=debug)
