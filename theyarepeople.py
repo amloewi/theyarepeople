@@ -56,7 +56,6 @@ def main():
 
     if request.method == 'POST':
 
-        print request.remote_addr
         submission = Submission(request.form['text'], request.remote_addr)
         db.session.add(submission)
         db.session.commit()

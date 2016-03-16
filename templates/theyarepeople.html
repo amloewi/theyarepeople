@@ -7,13 +7,38 @@
     <meta name="description" content="">
     <meta name="author" content="Alex Martin Loewi">
 
+    <!-- Bootstrap needs jQuery (and import order matters)-->
+    <script src="/static/libraries/jquery-2.1.4.min.js" type="text/javascript" ></script>
     <!-- Bootstrap core CSS -->
     <link href="/static/libraries/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- All bootstrap js files -->
+    <script src="/static/libraries/bootstrap/js/bootstrap.js" type="text/javascript" ></script>
+
+
 
     <script type="text/javascript">
       window.onload = function(){
         document.title = "They Are People"
       };
+
+
+      // Done indirectly (through this function) so that both
+      // the redirect can be prevented, and the modal can be triggered
+
+      function thankyou(){
+        alert('Thank you. Please tell your friends -- there is a lot to do.')
+      }
+      // 
+      // $("#myform").submit(function(){
+      //   console.log('submitted')
+      //   $("#modalButton").trigger('click');
+      //   event.preventDefault() // manually clear text field?
+      //   return false
+      // });
+
+
+
+
     </script>
 
   </head>
@@ -89,11 +114,33 @@
             And there is literally nothing in the world that matters more than that. -->
 
           </div>
+          <!-- onsubmit="thankyou()"> -->
 
-          <form class="col-md-12" style="top:10px;" method="post">
-              <input  type="text" name="text" class="col-md-10" placeholder="I sent this to: John Doe, WaPo, March 15">
-              <button type="submit" name="submit" class="btn btn-default col-md-2" style="top:-5px; background:lightgrey">--></button>
+          <form class="col-md-12" style="top:10px;" method="post" id="myform" onsubmit="thankyou()">
+              <input class="col-md-10" type="text" name="text" placeholder="I sent this to: John Doe, WaPo, March 15">
+              <button class="btn btn-default col-md-2" style="top:-5px; background:lightgrey">--></button>
           </form>
+
+          <button type="button" id="modalButton" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" style="display:none"></button>
+          <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Thank you</h4>
+                </div>
+                <div class="modal-body">
+                  <p>.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
 
           <!-- Entries that go under the middle column -->
           <div class="col-md-4" style="color:lightgray;">
